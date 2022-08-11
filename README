@@ -1,0 +1,56 @@
+# Houmer Locations
+
+Se asume que se tiene dispositivo GPS que registra coordenadas y velocidad.
+Cada uno de estos dispositivos tiene un ID que se asocia a un Houmer.
+
+Para registrar un dato de posición se debe llamar a:
+
+PUT:  [host]/locations
+
+Y en el cuerpo escribir el siguiente JSON:
+
+{
+    "houmer_id" : 1
+    "lat" : 33.3333333
+    "lon" : 33.3333333
+    "speed" : 5
+}
+
+Para consultar los excesos de velocidad en una cierta fecha se debe llamar:
+
+POST: [host]/locations/overspeed
+
+Y en el cuerpo escribir el siguiente JSON:
+
+{
+    "date": 15/8/2022
+    "speed" : 5
+}
+
+Para consultar el tiempo detenido en una posición para cierta fecha:
+
+POST: [host]/locations/stops
+
+Y en el cuerpo escribir el siguiente JSON:
+
+{
+    "date": 15/8/2022
+}
+
+
+## INSTALACIÓN
+
+Escribir los valores de variables de administrador en el archivo .env
+
+Ejecutar:
+'''docker-compose up --build
+
+en este directorio.
+
+Una vez completado ejecutar desde un browser
+
+GET:  [host]/internal/migrate
+
+Esto creará las tablas en la base de datos para poder funcionar.
+
+Ahora puede registrar y consultar lo pedido. Enjoy!

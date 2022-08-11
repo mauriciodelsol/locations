@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0.28
+    env_file:
+      - .env
+    ports:
+      - 33006:3306
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      [
+        "sh",
+        "scripts/entrypoint.sh",
+        "Web",
+        "python",
+        "manage.py",
+        "runserver",
+        "0.0.0.0:8000"
+      ]
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
